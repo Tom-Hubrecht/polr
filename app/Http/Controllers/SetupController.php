@@ -75,6 +75,7 @@ class SetupController extends Controller {
         $date_today = date('F jS, Y');
 
         $polr_setup_ran = 'true';
+        $db_connection = $request->input('db:connection');
         $db_host = $request->input('db:host');
         $db_port = $request->input('db:port');
         $db_name = $request->input('db:name');
@@ -153,6 +154,7 @@ class SetupController extends Controller {
             'POLR_SETUP_RAN' => $polr_setup_ran,
             'MAXMIND_LICENSE_KEY' => $maxmind_license_key,
 
+            'DB_CONNECTION' => $db_connection,
             'DB_HOST' => $db_host,
             'DB_PORT' => $db_port,
             'DB_USERNAME' => $db_username,

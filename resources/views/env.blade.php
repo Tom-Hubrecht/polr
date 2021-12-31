@@ -29,8 +29,9 @@ POLR_SETUP_RAN={{$POLR_SETUP_RAN}}
 # Steps for obtaining a Maxmind License Key: https://docs.polrproject.org/en/latest/user-guide/maxmind-license
 MAXMIND_LICENSE_KEY="{{$MAXMIND_LICENSE_KEY}}"
 
-DB_CONNECTION=mysql
-# Set to your DB host (e.g localhost)
+# DB connection (e.g. mysql or pgsql)
+DB_CONNECTION={{{$DB_CONNECTION}}}
+# Set to your DB host (e.g localhost or IP address)
 DB_HOST="{{{$DB_HOST}}}"
 # DB port (e.g 3306)
 DB_PORT={{$DB_PORT}}
