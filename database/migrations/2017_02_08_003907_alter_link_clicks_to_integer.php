@@ -16,7 +16,16 @@ class AlterLinkClicksToInteger extends Migration
     {
         Schema::table('links', function (Blueprint $table)
         {
-            $table->integer('clicks')->change();
+            if (config('database')['default'] == 'pgsql') {
+                $dropDefaultStatement = "ALTER TABLE links ALTER clicks DROP DEFAULT;";
+                $alterColumnTypeStatement = "ALTER TABLE links ALTER clicks TYPE INT using clicks::integer;";
+                $setDefaultStatement = "ALTER TABLE links ALTER clicks SET DEFAULT 0;";
+                DB::statement($dropDefaultStatement);
+                DB::statement($alterColumnTypeStatement);
+                DB::statement($setDefaultStatement);
+            } else {
+                $table->integer('clicks')->change();
+            }
         });
     }
 
@@ -29,7 +38,12 @@ class AlterLinkClicksToInteger extends Migration
     {
         Schema::table('links', function (Blueprint $table)
         {
-            $table->string('clicks')->change();
+            if (config('database')['default'] == 'pgsql') {
+                $alterColumnTypeStatement = "ALTER TABLE links ALTER clicks TYPE character varying(255);";
+                DB::statement($alterColumnTypeStatement);
+            } else {
+                $table->string('clicks')->change();
+            }
         });
     }
 }
